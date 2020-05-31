@@ -1,17 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const RosApi = require('node-routeros').RouterOSAPI;
+var express = require('express');
+var router = express.Router();
+var bodyParser = require('body-parser');
 
-const app = express();
+var RosApi = require('node-routeros').RouterOSAPI;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true,}));
 
-app.get('/pppoecnt', function(req, res) {
-  var services = []
+router.get('/', function(req, res, next) {
+    var services = []
 
-  var ip = req.body.ip
-  var ifn = req.body.ifn
+  console.log(req.query)
+
+  var ip = req.query.ip
+  var ifn = req.query.ifn
+
 
   const conn = new RosApi({
     host: ip,
@@ -19,7 +20,6 @@ app.get('/pppoecnt', function(req, res) {
     password: '64eu.7!4eu#',
     keepalive: true
   });
-
   conn.connect()
     .then(() => {
       conn.write('/interface/pppoe-server/print')
@@ -36,8 +36,6 @@ app.get('/pppoecnt', function(req, res) {
     .catch(err => {
       console.log(err);
     })
-}) 
+});
 
-app.listen(3000, () => {
-  console.log('App running on port 3000!');
-})
+module.exports = router;

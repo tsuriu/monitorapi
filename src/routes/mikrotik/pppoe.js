@@ -8,7 +8,7 @@ var RosApi = require('node-routeros').RouterOSAPI;
 router.get('/', function(req, res, next) {
     var services = []
 
-  console.log(req.query)
+  console.log("Online Users Qry", req.query)
 
   var ip = req.query.ip
   var ifn = req.query.ifn

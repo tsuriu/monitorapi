@@ -32,4 +32,28 @@ router.get('/cntref', function(req, res, next) {
     });
 });
 
+router.get('/cliinfo', function(req, res, next) {
+  const knex = require('knex') ({
+    client: 'mysql',
+    connection: {
+      host : '172.31.254.41',
+      user : 'squid',
+      password : '***root*fistel@kaua2020dbrbx',
+      database : 'isupergaus'
+      }
+  });
+
+  var user = req.query.user;
+
+  knex.select().from('ClientesUsuarios').where('Porta',ifn).where('Situacao',sit).where('MAC','!=','undefined')
+    .then(cnt =>{
+      res.json(cnt.length);
+      console.log(ifn,sit,cnt.length)
+    }).catch((err) => {
+      console.log( err);
+    }).finally(() => {
+      knex.destroy();
+    });
+});
+
 module.exports = router;

@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
   dns.lookup(domain, {all: true, },(err, addresses) => {
     console.log(domain);
-    var ret = {"IPsRESOLVED":addresses};
+    var ret = {"data":addresses};
     console.log(ret);
 
     res.json(ret);
